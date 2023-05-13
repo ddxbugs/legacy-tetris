@@ -1,5 +1,5 @@
 /**
- * 
+ * TetrisGui.java
  */
 package view;
 
@@ -11,11 +11,16 @@ import java.util.Observer;
 import javax.swing.JFrame;
 
 /**
- * @author User
+ * @author ddxbugs
  *
  */
 public class TetrisGui extends JFrame implements Observer {
-
+	/**
+	 * Invokes the runnable method
+	 */
+	public void start() {
+		
+	}
 	/**
 	 * @throws HeadlessException
 	 */

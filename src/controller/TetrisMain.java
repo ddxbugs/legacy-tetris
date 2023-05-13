@@ -5,6 +5,8 @@ package controller;
 
 import java.awt.EventQueue;
 
+import view.TetrisGui;
+
 /**
  * @author ddxbugs
  *
@@ -24,8 +26,8 @@ public class TetrisMain {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-//				final TetrisGui gui = new TetrisGui();
-//				gui.start();
+				final TetrisGui gui = new TetrisGui();
+				gui.start();
 			}
 		});
 

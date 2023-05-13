@@ -15,12 +15,17 @@ import javax.swing.JFrame;
  *
  */
 public class TetrisGui extends JFrame implements Observer {
+	private BoardView myBoardView;
+	private PreviewPanel myPreviewPanel;
+	private ScorePanel myScorePanel;
+	
 	/**
 	 * Invokes the runnable method
 	 */
 	public void start() {
 		
 	}
+	
 	/**
 	 * @throws HeadlessException
 	 */
@@ -43,6 +48,9 @@ public class TetrisGui extends JFrame implements Observer {
 	public TetrisGui(String title) throws HeadlessException {
 		super(title);
 		// TODO Auto-generated constructor stub
+		myBoardView = new BoardView();
+		myPreviewPanel = new PreviewPanel();
+		myScorePanel = new ScorePanel();
 	}
 
 	/**

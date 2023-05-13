@@ -5,7 +5,10 @@ package controller;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.net.URL;
+
+import javax.swing.ImageIcon;
 
 import view.TetrisGui;
 

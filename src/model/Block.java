@@ -8,5 +8,12 @@ package model;
  *
  */
 public enum Block {
-
+	EMPTY,
+	I,
+	J,
+	L,
+	O,
+	S,
+	T,
+	Z;
 }

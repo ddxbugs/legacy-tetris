@@ -61,6 +61,8 @@ public class TetrisGui extends JFrame implements Observer {
 		panel.add(myPreviewPanel);
 		
 		layeredPane.add(panel);
+		
+		add(layeredPane);
 	}
 	/**
 	 * @param title
@@ -74,7 +76,9 @@ public class TetrisGui extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-
+		if (arg instanceof Boolean && ((Boolean) arg).booleanValue()) {
+			// end game
+		}
 	}
 
 }

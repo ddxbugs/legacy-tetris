@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import view.TetrisGui;
 
@@ -22,13 +23,14 @@ public class TetrisMain {
 	private static final int DEFAULT_WIDTH = 600;
 	private static final int DEFAULT_HEIGHT = 700;
 	/**
-	 * 
+	 * Private constructor inhibits instantiation
 	 */
 	private TetrisMain() {
 		throw new IllegalStateException();
 	}
 	/**
-	 * @param args
+	 * Tetris Main 
+	 * @param args the Arguments
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -39,7 +41,7 @@ public class TetrisMain {
 				final Image icon = new ImageIcon(url).getImage();
 				
 				final TetrisGui gui = new TetrisGui(TITLE);
-				gui.setDefaultCloseOperation(0);
+				gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				gui.setMinimumSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 				gui.setResizable(false);
 				gui.pack();

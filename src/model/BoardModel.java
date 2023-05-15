@@ -13,8 +13,8 @@ import java.util.Observable;
  */
 public class BoardModel extends Observable {
 	private static final int CEILING_BUFFER = 4;
-	private static final int DEFAULT_WIDTH = 10;
-	private static final int DEFAULT_HEIGHT = 20;
+	private static final int DEFAULT_MODEL_WIDTH = 10;
+	private static final int DEFAULT_MODEL_HEIGHT = 20;
 	
 	private List<Block[]> myFrozenBlocks;
 	private List<TetrisPiece> myTetrisPieces;
@@ -36,6 +36,9 @@ public class BoardModel extends Observable {
 	public void down() {
 	
 	}
+	public void reset() {
+		myFrozenBlocks.clear();
+	}
 	
 	/**
 	 * 
@@ -46,8 +49,8 @@ public class BoardModel extends Observable {
 		final StringBuilder sb;
 		Block[] arr;
 		
-		height = DEFAULT_HEIGHT;
-		width = DEFAULT_WIDTH;
+		height = DEFAULT_MODEL_HEIGHT;
+		width = DEFAULT_MODEL_WIDTH;
 		
 		sb = new StringBuilder();
 		arr = new Block[width];

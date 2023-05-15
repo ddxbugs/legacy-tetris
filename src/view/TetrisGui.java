@@ -18,43 +18,37 @@ import javax.swing.JPanel;
  *
  */
 public class TetrisGui extends JFrame implements Observer {
+
+	private static final int DEFAULT_BOARD_WIDTH = 300;
+	private static final int DEFAULT_BOARD_HEIGHT = 600;
+	private static final int DEFAULT_PREVIEW_PANEL_WIDTH = 0;
+	private static final int DEFAULT_PREVIEW_PANEL_HEIGHT = 0;
+	private static final int DEFAULT_SCORE_PANEL_WIDTH = 0;
+	private static final int DEFAULT_SCORE_PANEL_HEIGHT = 0;
 	
 	private BoardView myBoardView;
 	private PreviewPanel myPreviewPanel;
 	private ScorePanel myScorePanel;
 	
 	/**
+	 * @param theTitle
 	 * @throws HeadlessException
 	 */
-	private TetrisGui() throws HeadlessException {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param gc
-	 */
-	public TetrisGui(GraphicsConfiguration gc) {
-		super(gc);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param title
-	 * @throws HeadlessException
-	 */
-	public TetrisGui(String title) throws HeadlessException {
-		super(title);
+	public TetrisGui(String theTitle) throws HeadlessException {
+		super(theTitle);
 		// TODO Auto-generated constructor stub
 		JLayeredPane layeredPane;
 		JPanel panel;
 		layeredPane = new JLayeredPane();
 		panel = new JPanel();
 		
-		layeredPane.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
 		
 		myBoardView = new BoardView();
 		myPreviewPanel = new PreviewPanel();
 		myScorePanel = new ScorePanel();
+		
+		setUpComponents();
 		
 		panel.add(myScorePanel);
 		panel.add(myBoardView);
@@ -64,20 +58,23 @@ public class TetrisGui extends JFrame implements Observer {
 		
 		add(layeredPane);
 	}
-	/**
-	 * @param title
-	 * @param gc
-	 */
-	public TetrisGui(String title, GraphicsConfiguration gc) {
-		super(title, gc);
-		// TODO Auto-generated constructor stub
+	
+	private void setUpComponents() {
+		myBoardView.setSize(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
+		myPreviewPanel.setSize(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT);
+		myScorePanel.setSize(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT);
 	}
-
+	
+	/**
+	 * 
+	 */
+	@Deprecated
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if (arg instanceof Boolean && ((Boolean) arg).booleanValue()) {
 			// end game
+			myBoardView.endGame();
 		}
 	}
 

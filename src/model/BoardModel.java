@@ -33,13 +33,25 @@ public class BoardModel extends Observable {
 		myCurrentPiece = null;
 		
 	}
-	public void down() {
 	
-	}
 	public void reset() {
 		myFrozenBlocks.clear();
 	}
-	
+	public void rotate() {
+		
+	}
+	public void drop() {
+		
+	}
+	public void down() {
+		
+	}
+	public void left() {
+		
+	}
+	public void right() {
+		
+	}
 	/**
 	 * 
 	 * @return Returns the current board state as a String

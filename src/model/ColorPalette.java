@@ -33,6 +33,10 @@ public enum ColorPalette {
 		myG = theG;
 		myB = theB;	
 	}
+	/**
+	 * Return the TetrisPiece RGB color values
+	 * @return Java AWT color object
+	 */
 	public Color getColor() {
 		return new Color(myR, myG, myB);
 	}

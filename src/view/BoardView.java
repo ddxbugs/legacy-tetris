@@ -10,6 +10,8 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
@@ -101,6 +103,35 @@ public class BoardView extends JPanel implements ActionListener {
 			}
 			rectX = ZERO;
 			rectY += h;
+		}
+	}
+	
+	class Player extends KeyAdapter {
+		private static final int UP = KeyEvent.VK_UP;
+		private static final int DOWN = KeyEvent.VK_DOWN;
+		private static final int LEFT = KeyEvent.VK_LEFT;
+		private static final int RIGHT = KeyEvent.VK_RIGHT;
+		private static final int SPACE = KeyEvent.VK_SPACE;
+		private static final int ESC = KeyEvent.VK_ESCAPE;
+		
+		Player() {
+			super();
+		}
+		
+		public void keyPressed(final KeyEvent theKeyEvent) {
+			int key;
+			
+			key = theKeyEvent.getKeyCode();
+			
+			switch(key) {
+			case UP : myBoardModel.rotate(); 
+			case DOWN : myBoardModel.down();
+			case LEFT : myBoardModel.left();
+			case RIGHT : myBoardModel.right();
+			case SPACE : myBoardModel.drop();
+//			case ESC : myTimer.stop();
+			default : break;
+			}
 		}
 	}
 	

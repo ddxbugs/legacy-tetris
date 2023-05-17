@@ -38,7 +38,7 @@ public class TetrisGui extends JFrame implements Observer {
 	private BoardView myBoardView;
 	private PreviewPanel myPreviewPanel;
 	private ScorePanel myScorePanel;
-	
+	private SettingsPanel mySettingsPanel;
 	/**
 	 * @param theTitle
 	 * @throws HeadlessException
@@ -101,6 +101,10 @@ public class TetrisGui extends JFrame implements Observer {
 		private static final String HELP = "Help";
 		private static final String EXIT = "Exit";
 		private static final String CONTROLS = "Controls";
+		private static final String HINT = "Hint";
+		/**
+		 * 
+		 */
 		MenuBar() {
 			super();
 			setUpComponents();
@@ -145,15 +149,36 @@ public class TetrisGui extends JFrame implements Observer {
 			final String cmd = theActionEvent.getActionCommand();
 			
 			switch(cmd) {
-			case NEW_GAME : break;
-			case END_GAME : break;
-			case SETTINGS : break;
+			case NEW_GAME : myBoardView.newGame();
+			case END_GAME : myBoardView.endGame();
+//			case SETTINGS : mySettingsPanel.show();
 			case ABOUT : JOptionPane.showMessageDialog(myBoardView, INFO, TITLE, JOptionPane.OK_OPTION);
-			case HELP : break;
-			case EXIT : break;
-			case CONTROLS : break;
+			case HELP : JOptionPane.showMessageDialog(myBoardView, HINT, TITLE, JOptionPane.OK_OPTION);
+			case EXIT : System.exit(0);;
+//			case CONTROLS : myControlPanel.show();
 			default : break;
 			}
+		}
+	}
+	/**
+	 * Display the settings configuration menu panel
+	 * TODO 
+	 * @author ddxbugs
+	 *
+	 */
+	class SettingsPanel extends JPanel {
+		SettingsPanel() {
+			super();
+		}
+	}
+	/**
+	 * Display the keyboard controller configuration menu panel
+	 * @author ddxbugs
+	 *
+	 */
+	class ControlPanel extends JPanel {
+		ControlPanel() {
+			super();
 		}
 	}
 }

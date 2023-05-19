@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
+import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -33,19 +34,23 @@ public class BoardView extends JPanel implements ActionListener {
 	private BoardModel myBoardModel;
 	private Timer myTimer;
 	
-	public BoardView() {
+	public BoardView(final int theWidth, final int theHeight) {
 		// TODO Auto-generated constructor stub
 		super();
 		myBoardModel = new BoardModel();
 		myTimer = new Timer(DEFAULT_DELAY_MS, this);
+		
+		setSize(theWidth, theHeight);
 	}
-	
+	/**
+	 * Manually set the width and height of the board to the scale
+	 */
 	public void setDimension(final int theWidth, final int theHeight, final int theScale) {
 		setSize(theWidth * theScale, theHeight * theScale);
 	}
 	protected void newGame() {
+		myBoardModel.reset();
 		myTimer.start();
-//		myBoardModel.reset();
 	}
 	protected void endGame() {
 		myTimer.stop();
@@ -77,22 +82,24 @@ public class BoardView extends JPanel implements ActionListener {
 		
 		rectX = 0;
 		rectY = 0;
-		w = DEFAULT_BOARD_MODEL_SCALE;
-		h = DEFAULT_BOARD_MODEL_SCALE;
+		w = getWidth() / DEFAULT_BOARD_MODEL_SCALE;
+		h = getHeight() / DEFAULT_BOARD_MODEL_SCALE;
 		
 		String[] board = myBoardModel.toString().split("\n");
-		
-		for (int i = 5; i < board.length; i++) {
+		for (int i = 0; i < board.length; i++) {
 			row = board[i];
+			
 			for (int col = 0; col < row.length(); col++) {
 				block = row.charAt(i);
 				switch (block) {
 				case 'I' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
 				case 'J' : theGraphics.setColor(ColorPalette.CYAN_TRON_LEGACY.getColor());
-				case 'L' : theGraphics.setColor(ColorPalette.CYAN_TRON_LEGACY.getColor());				case 'S' : break;
+				case 'L' : theGraphics.setColor(ColorPalette.CYAN_TRON_LEGACY.getColor());				
+				case 'S' : theGraphics.setColor(ColorPalette.SWEET_YELLOW.getColor());
 				case 'T' : theGraphics.setColor(ColorPalette.SWEET_YELLOW.getColor());
 				case 'Z' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
 				case 'O' : theGraphics.setColor(ColorPalette.PANE.getColor());
+				case '|' : break;
 				default : theGraphics.setColor(ColorPalette.BASESTAR.getColor());
 				}
 				r = new Rectangle(rectX, rectY, w, h);

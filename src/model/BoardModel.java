@@ -26,31 +26,45 @@ public class BoardModel extends Observable {
 	 * 
 	 */
 	public BoardModel() {
-		// TODO Auto-generated constructor stub'
+		// TODO Auto-generated constructor stub
 		myFrozenBlocks = new ArrayList<Block[]>();
 		myTetrisPieces = new ArrayList<TetrisPiece>();
 		myNextPiece = null;
 		myCurrentPiece = null;
 		
+		reset();
+		
 	}
 	
 	public void reset() {
 		myFrozenBlocks.clear();
+		for (int h = 0; h < DEFAULT_MODEL_HEIGHT; h++) {
+			myFrozenBlocks.add(new Block[DEFAULT_MODEL_WIDTH]);
+		}
+		
+		myNextPiece = TetrisPiece.getRandomPiece();
+		
+		myCurrentPiece = new MovableTetrisPiece(myNextPiece,
+				new Point((DEFAULT_MODEL_WIDTH - myNextPiece.getWidth()) / 2,
+						DEFAULT_MODEL_HEIGHT - 1));
+
+		// TODO fire action listener OR notify observers
+		
 	}
 	public void rotate() {
-		
+		System.out.println("Rotate");
 	}
 	public void drop() {
-		
+		System.out.println("Drop");
 	}
 	public void down() {
-		
+		System.out.println("Down");
 	}
 	public void left() {
-		
+		System.out.println("Left");
 	}
 	public void right() {
-		
+		System.out.println("Right");
 	}
 	/**
 	 * 
@@ -65,24 +79,19 @@ public class BoardModel extends Observable {
 		width = DEFAULT_MODEL_WIDTH;
 		
 		sb = new StringBuilder();
-		arr = new Block[width];
-		
-		// TODO new game; add initial piece to board
-		
-		// buffer
-		for (int buffer = 0; buffer < CEILING_BUFFER; buffer++) {
-			sb.append(new Block[width]);
-		}
 		
 		// ceiling	
 		sb.append(' ');
 		for (int i = 0; i < width; i++)
 			sb.append('-');
-		sb.append('\n');
+		sb.append(" \n");
 		
 		// board
-		for (int row = height - 1; row >= 0; row--) {
-			arr = myFrozenBlocks.get(row);	
+		for (int row = height - 1; row >= 0 
+				&& myFrozenBlocks.size() > 0 
+				&& myCurrentPiece != null; row--) {
+			
+			arr = myFrozenBlocks.get(row);	// TODO FIX ME!!!
 			sb.append('|'); // left wall
 			for (final Block b : arr) {
 				if (b == null)
@@ -94,10 +103,10 @@ public class BoardModel extends Observable {
 		}
 		
 		// floor
-		sb.append('|');
+		sb.append(' ');
 		for (int w = 0; w < width; w++)
 			sb.append('-');
-		sb.append('|');
+		sb.append(' ');
 		
 		return sb.toString();
 	}

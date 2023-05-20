@@ -53,7 +53,7 @@ public class TetrisGui extends JFrame implements Observer {
 		
 		layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
 		
-		myBoardView = new BoardView();
+		myBoardView = new BoardView(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
 		myPreviewPanel = new PreviewPanel();
 		myScorePanel = new ScorePanel();
 		

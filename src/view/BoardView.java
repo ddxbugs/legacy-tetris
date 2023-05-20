@@ -85,12 +85,17 @@ public class BoardView extends JPanel implements ActionListener {
 		w = getWidth() / DEFAULT_BOARD_MODEL_SCALE;
 		h = getHeight() / DEFAULT_BOARD_MODEL_SCALE;
 		
+		System.out.println("getWidth() " + getWidth());
+		System.out.println("getHeight() " + getHeight());
+		System.out.println(w + ", " + h);
+		
 		String[] board = myBoardModel.toString().split("\n");
 		for (int i = 0; i < board.length; i++) {
 			row = board[i];
-			
+			System.out.println(i + " " + row + "\t" + row.length());
 			for (int col = 0; col < row.length(); col++) {
-				block = row.charAt(i);
+//				block = row.charAt(i);
+				block = ' ';
 				switch (block) {
 				case 'I' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
 				case 'J' : theGraphics.setColor(ColorPalette.CYAN_TRON_LEGACY.getColor());
@@ -99,8 +104,8 @@ public class BoardView extends JPanel implements ActionListener {
 				case 'T' : theGraphics.setColor(ColorPalette.SWEET_YELLOW.getColor());
 				case 'Z' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
 				case 'O' : theGraphics.setColor(ColorPalette.PANE.getColor());
+				case ' ' : theGraphics.setColor(ColorPalette.BASESTAR.getColor());
 				case '|' : break;
-				default : theGraphics.setColor(ColorPalette.BASESTAR.getColor());
 				}
 				r = new Rectangle(rectX, rectY, w, h);
 				theGraphics.fill(r);

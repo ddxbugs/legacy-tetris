@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 
@@ -41,6 +42,8 @@ public class BoardView extends JPanel implements ActionListener {
 		myTimer = new Timer(DEFAULT_DELAY_MS, this);
 		
 		setSize(theWidth, theHeight);
+		addKeyListener(new Player());
+		setFocusable(true);
 	}
 	/**
 	 * Manually set the width and height of the board to the scale
@@ -118,7 +121,7 @@ public class BoardView extends JPanel implements ActionListener {
 		}
 	}
 	
-	class Player extends KeyAdapter {
+	class Player implements KeyListener {
 		private static final int UP = KeyEvent.VK_UP;
 		private static final int DOWN = KeyEvent.VK_DOWN;
 		private static final int LEFT = KeyEvent.VK_LEFT;
@@ -126,24 +129,33 @@ public class BoardView extends JPanel implements ActionListener {
 		private static final int SPACE = KeyEvent.VK_SPACE;
 		private static final int ESC = KeyEvent.VK_ESCAPE;
 		
-		Player() {
-			super();
-		}
-		
 		public void keyPressed(final KeyEvent theKeyEvent) {
 			int key;
 			
 			key = theKeyEvent.getKeyCode();
 			
 			switch(key) {
-			case UP : myBoardModel.rotate(); 
-			case DOWN : myBoardModel.down();
-			case LEFT : myBoardModel.left();
-			case RIGHT : myBoardModel.right();
-			case SPACE : myBoardModel.drop();
-//			case ESC : myTimer.stop();
+			
+			case UP : myBoardModel.rotate(); break;
+			case DOWN : myBoardModel.down(); break;
+			case LEFT : myBoardModel.left(); break;
+			case RIGHT : myBoardModel.right(); break;
+			case SPACE : myBoardModel.drop(); break;
+			case ESC : myTimer.stop(); break;
 			default : break;
 			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	

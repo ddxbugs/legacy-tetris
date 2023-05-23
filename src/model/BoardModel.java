@@ -51,20 +51,51 @@ public class BoardModel extends Observable {
 		// TODO fire action listener OR notify observers
 		
 	}
+	
 	public void rotate() {
-		System.out.println("Rotate");
+//		System.out.println("Rotate");
 	}
 	public void drop() {
-		System.out.println("Drop");
+//		System.out.println("Drop");
+		boolean b;
+		b = false;
+		while (b) {
+			b = move(myCurrentPiece.down());
+		}
 	}
 	public void down() {
-		System.out.println("Down");
+//		System.out.println("Down");
+		move(myCurrentPiece.down());
 	}
 	public void left() {
-		System.out.println("Left");
+//		System.out.println("Left");
+		move(myCurrentPiece.left());
 	}
 	public void right() {
-		System.out.println("Right");
+//		System.out.println("Right");
+		move(myCurrentPiece.right());
+	}
+	private boolean move(MovableTetrisPiece theCurrentPiece) {
+		boolean success;
+		success = false;
+		if (isMovable()) {
+			myCurrentPiece = theCurrentPiece;
+			success = true;
+//			setChanged(); // TODO update observer
+		}
+		return success;
+	}
+	private boolean isMovable() {
+		boolean isMovable = true;
+		for (final Point p : myCurrentPiece.getBoardPoints()) {
+			if (p.getX() < 0 || p.getX() >= DEFAULT_MODEL_WIDTH) {
+				isMovable = false;
+			}
+			if (p.getY() < 0) {
+				isMovable = false;
+			}
+		}
+		return isMovable;
 	}
 	/**
 	 * 

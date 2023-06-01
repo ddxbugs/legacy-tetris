@@ -32,7 +32,12 @@ public enum Rotation {
     /**
      * Three quarters rotation or 270 degrees.
      */
-    THREEQUARTER;
+    THREEQUARTER,
+	
+    /**
+	 * 
+	 */
+    NONE;
 
     /**
      * A Random object used for generating random rotations.

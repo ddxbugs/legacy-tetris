@@ -152,13 +152,13 @@ public class TetrisGui extends JFrame implements Observer {
 			final String cmd = theActionEvent.getActionCommand();
 			
 			switch(cmd) {
-			case NEW_GAME : myBoardView.newGame();
-			case END_GAME : myBoardView.endGame();
-//			case SETTINGS : mySettingsPanel.show();
-			case ABOUT : JOptionPane.showMessageDialog(myBoardView, INFO, TITLE, JOptionPane.OK_OPTION);
-			case HELP : JOptionPane.showMessageDialog(myBoardView, HINT, TITLE, JOptionPane.OK_OPTION);
-			case EXIT : System.exit(0);;
-//			case CONTROLS : myControlPanel.show();
+			case NEW_GAME : myBoardView.newGame(); break;
+			case END_GAME : myBoardView.endGame(); break;
+//			case SETTINGS : mySettingsPanel.show(); break;
+			case ABOUT : JOptionPane.showMessageDialog(myBoardView, INFO, TITLE, JOptionPane.OK_OPTION); break;
+			case HELP : JOptionPane.showMessageDialog(myBoardView, HINT, TITLE, JOptionPane.OK_OPTION); break;
+			case EXIT : System.exit(0); break;
+//			case CONTROLS : myControlPanel.show(); break;
 			default : break;
 			}
 		}

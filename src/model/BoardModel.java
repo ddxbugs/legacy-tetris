@@ -49,7 +49,6 @@ public class BoardModel extends Observable {
 						DEFAULT_MODEL_HEIGHT - 1));
 
 		// TODO fire action listener OR notify observers
-		
 	}
 	
 	public void rotate() {
@@ -57,10 +56,10 @@ public class BoardModel extends Observable {
 	}
 	public void drop() {
 //		System.out.println("Drop");
-		boolean b;
-		b = false;
-		while (b) {
-			b = move(myCurrentPiece.down());
+		boolean drop;
+		drop = false;
+		while (drop) {
+			drop = move(myCurrentPiece.down());
 		}
 	}
 	public void down() {

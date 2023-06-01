@@ -35,6 +35,7 @@ public class TetrisGui extends JFrame implements Observer {
 	private static final int DEFAULT_SCORE_PANEL_WIDTH = 0;
 	private static final int DEFAULT_SCORE_PANEL_HEIGHT = 0;
 	
+	private MenuBar myMenuBar;
 	private BoardView myBoardView;
 	private PreviewPanel myPreviewPanel;
 	private ScorePanel myScorePanel;
@@ -56,6 +57,7 @@ public class TetrisGui extends JFrame implements Observer {
 		myBoardView = new BoardView(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
 		myPreviewPanel = new PreviewPanel();
 		myScorePanel = new ScorePanel();
+		myMenuBar = new MenuBar();
 		
 		setUpComponents();
 		
@@ -66,6 +68,7 @@ public class TetrisGui extends JFrame implements Observer {
 		layeredPane.add(panel);
 		
 		add(layeredPane);
+		setJMenuBar(myMenuBar);
 	}
 	/**
 	 * 

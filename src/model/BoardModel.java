@@ -53,6 +53,17 @@ public class BoardModel extends Observable {
 	
 	public void rotate() {
 //		System.out.println("Rotate");
+		if (myCurrentPiece != null) {
+			final MovableTetrisPiece cwPiece = myCurrentPiece.rotate();
+			final Point[] offset = WallKick.getWallKicks(cwPiece.getTetrisPiece(), 
+					myCurrentPiece.getRotation(), 
+					cwPiece.getRotation());
+			for (final Point p : offset) {
+				final Point offsetPoint = cwPiece.getPosition().transform(p);
+				final MovableTetrisPiece temp = cwPiece.setPosition(offsetPoint);
+				if (move(temp)) break;
+			}
+		} 
 	}
 	public void drop() {
 //		System.out.println("Drop");
@@ -64,17 +75,20 @@ public class BoardModel extends Observable {
 	}
 	public void down() {
 //		System.out.println("Down");
-		move(myCurrentPiece.down());
+		if (myCurrentPiece != null)
+			move(myCurrentPiece.down());
 	}
 	public void left() {
 //		System.out.println("Left");
-		move(myCurrentPiece.left());
+		if (myCurrentPiece != null)
+			move(myCurrentPiece.left());
 	}
 	public void right() {
 //		System.out.println("Right");
-		move(myCurrentPiece.right());
+		if (myCurrentPiece != null)
+			move(myCurrentPiece.right());
 	}
-	private boolean move(MovableTetrisPiece theCurrentPiece) {
+	private boolean move(final MovableTetrisPiece theCurrentPiece) {
 		boolean success;
 		success = false;
 		if (isMovable()) {

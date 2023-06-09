@@ -3,7 +3,11 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,60 +27,78 @@ import javax.swing.JPanel;
  * @author ddxbugs
  *
  */
-public class TetrisGui extends JFrame implements Observer {
+public class TetrisGui extends JFrame implements Observer, ActionListener {
 
-	private static final String INFO = "Disney's : Tron 2010 All Rights Reserved";
-	private static final String TITLE = "Legacy Tetris 2018";
-	
-	private static final int DEFAULT_BOARD_WIDTH = 300;
-	private static final int DEFAULT_BOARD_HEIGHT = 600;
-	private static final int DEFAULT_PREVIEW_PANEL_WIDTH = 0;
-	private static final int DEFAULT_PREVIEW_PANEL_HEIGHT = 0;
-	private static final int DEFAULT_SCORE_PANEL_WIDTH = 0;
-	private static final int DEFAULT_SCORE_PANEL_HEIGHT = 0;
-	
-	private MenuBar myMenuBar;
-	private BoardView myBoardView;
-	private PreviewPanel myPreviewPanel;
-	private ScorePanel myScorePanel;
-	private SettingsPanel mySettingsPanel;
 	/**
-	 * @param theTitle
+	 * Default serial version UID
+	 */
+	private static final long serialVersionUID = 1L;
+	/** Disney movie franchise title and credits */
+	private static final String INFO = "Disney's : Tron 2010 All Rights Reserved";
+	/** Legacy Tetris game title */
+	private static final String TITLE = "Legacy Tetris 2018";
+	/** The default board view width */
+	private static final int DEFAULT_BOARD_VIEW_WIDTH = 300;
+	/** The default board view height */
+	private static final int DEFAULT_BOARD_VIEW_HEIGHT = 600;
+	/** The default preview panel view width */
+	private static final int DEFAULT_PREVIEW_PANEL_WIDTH = 200;
+	/** The default preview panel view height */
+	private static final int DEFAULT_PREVIEW_PANEL_HEIGHT = 200;
+	/** The default score panel view width */
+	private static final int DEFAULT_SCORE_PANEL_WIDTH = 100;
+	/** The default score panel view height */
+	private static final int DEFAULT_SCORE_PANEL_HEIGHT = 50;
+	/** The in-game menu options */
+	private MenuBar myMenuBar;
+	/** The tetris board view */
+	private BoardView myBoardView;
+	/** The tetris preview view */
+	private PreviewPanel myPreviewPanel;
+	/** The tetris score view */
+	private ScorePanel myScorePanel;
+//	private SettingsPanel mySettingsPanel;
+	/**
+	 * Default public constructor class
+	 * @param theTitle Legacy Tetris
 	 * @throws HeadlessException
 	 */
-	public TetrisGui(String theTitle) throws HeadlessException {
+	public TetrisGui(final String theTitle) 
+			throws HeadlessException {
 		super(theTitle);
-		// TODO Auto-generated constructor stub
-		JLayeredPane layeredPane;
-		JPanel panel;
-		layeredPane = new JLayeredPane();
-		panel = new JPanel();
 		
-		layeredPane.setLayout(new BoxLayout(layeredPane, BoxLayout.Y_AXIS));
-		
-		myBoardView = new BoardView(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
+		myBoardView = new BoardView();
 		myPreviewPanel = new PreviewPanel();
 		myScorePanel = new ScorePanel();
 		myMenuBar = new MenuBar();
 		
 		setUpComponents();
-		
-		panel.add(myScorePanel);
-		panel.add(myBoardView);
-		panel.add(myPreviewPanel);
-		
-		layeredPane.add(panel);
-		
-		add(layeredPane);
-		setJMenuBar(myMenuBar);
 	}
 	/**
-	 * 
+	 * Set up the tetris game components
 	 */
 	private void setUpComponents() {
-		myBoardView.setSize(DEFAULT_BOARD_WIDTH, DEFAULT_BOARD_HEIGHT);
-		myPreviewPanel.setSize(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT);
-		myScorePanel.setSize(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT);
+		
+		JPanel tetrisGuiPanel;
+		
+		tetrisGuiPanel = new JPanel(new GridBagLayout());
+		tetrisGuiPanel.setBackground(Color.YELLOW);
+		
+		myBoardView.setMinimumSize(new Dimension(DEFAULT_BOARD_VIEW_WIDTH, DEFAULT_BOARD_VIEW_HEIGHT));
+		myPreviewPanel.setMinimumSize(new Dimension(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT));
+		myScorePanel.setMinimumSize(new Dimension(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT));
+		
+		myBoardView.setBackground(Color.BLACK);		// DEBUG Remove me
+		myPreviewPanel.setBackground(Color.RED);	// DEBUG Remove me
+		myScorePanel.setBackground(Color.GREEN);	// DEBUG Remove me
+		
+		tetrisGuiPanel.add(myPreviewPanel);
+		tetrisGuiPanel.add(myBoardView);
+		tetrisGuiPanel.add(myScorePanel);
+		
+		add(tetrisGuiPanel);
+		
+		setJMenuBar(myMenuBar);
 	}
 	/**
 	 * 
@@ -183,5 +205,10 @@ public class TetrisGui extends JFrame implements Observer {
 		ControlPanel() {
 			super();
 		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

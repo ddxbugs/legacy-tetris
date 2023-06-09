@@ -3,6 +3,8 @@
  */
 package model;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -11,46 +13,51 @@ import java.util.Observable;
  * @author ddxbugs
  *
  */
-public class BoardModel extends Observable {
+public class BoardModel implements ActionListener {
 	private static final int CEILING_BUFFER = 4;
-	private static final int DEFAULT_MODEL_WIDTH = 10;
-	private static final int DEFAULT_MODEL_HEIGHT = 20;
+	private static final int ONE = 1;
+	private static final int TWO = 2;
+	private static final int DEFAULT_BOARD_MODEL_WIDTH = 10;
+	private static final int DEFAULT_BOARD_MODEL_HEIGHT = 20;
 	
 	private List<Block[]> myFrozenBlocks;
 	private List<TetrisPiece> myTetrisPieces;
 	private TetrisPiece myNextPiece;
 	private MovableTetrisPiece myCurrentPiece;
 	
-	
 	/**
 	 * 
 	 */
 	public BoardModel() {
 		// TODO Auto-generated constructor stub
-		myFrozenBlocks = new ArrayList<Block[]>();
-		myTetrisPieces = new ArrayList<TetrisPiece>();
+		myFrozenBlocks = null;
+		myTetrisPieces = null;
 		myNextPiece = null;
 		myCurrentPiece = null;
 		
-		reset();
-		
+		reset();	
 	}
 	
 	public void reset() {
-		myFrozenBlocks.clear();
-		for (int h = 0; h < DEFAULT_MODEL_HEIGHT; h++) {
-			myFrozenBlocks.add(new Block[DEFAULT_MODEL_WIDTH]);
+		myFrozenBlocks = new ArrayList<Block[]>();
+		myTetrisPieces = new ArrayList<TetrisPiece>();
+		
+		for (int h = 0; h < DEFAULT_BOARD_MODEL_HEIGHT; h++) {
+			myFrozenBlocks.add(new Block[DEFAULT_BOARD_MODEL_WIDTH]);
 		}
 		
 		myNextPiece = TetrisPiece.getRandomPiece();
 		
-		myCurrentPiece = new MovableTetrisPiece(myNextPiece,
-				new Point((DEFAULT_MODEL_WIDTH - myNextPiece.getWidth()) / 2,
-						DEFAULT_MODEL_HEIGHT - 1));
-
-		// TODO fire action listener OR notify observers
+		myCurrentPiece = new MovableTetrisPiece(TetrisPiece.getRandomPiece(),
+				new Point((DEFAULT_BOARD_MODEL_WIDTH / TWO),
+						DEFAULT_BOARD_MODEL_HEIGHT - CEILING_BUFFER - ONE));
+		
+		myTetrisPieces.add(myNextPiece);
+				
 	}
-	
+	/**
+	 * 
+	 */
 	public void rotate() {
 //		System.out.println("Rotate");
 		if (myCurrentPiece != null) {
@@ -65,6 +72,9 @@ public class BoardModel extends Observable {
 			}
 		} 
 	}
+	/**
+	 * 
+	 */
 	public void drop() {
 //		System.out.println("Drop");
 		boolean drop;
@@ -73,21 +83,35 @@ public class BoardModel extends Observable {
 			drop = move(myCurrentPiece.down());
 		}
 	}
+	/**
+	 * 
+	 */
 	public void down() {
 //		System.out.println("Down");
 		if (myCurrentPiece != null)
 			move(myCurrentPiece.down());
 	}
+	/**
+	 * 
+	 */
 	public void left() {
 //		System.out.println("Left");
 		if (myCurrentPiece != null)
 			move(myCurrentPiece.left());
 	}
+	/**
+	 * 
+	 */
 	public void right() {
 //		System.out.println("Right");
 		if (myCurrentPiece != null)
 			move(myCurrentPiece.right());
 	}
+	/**
+	 * 
+	 * @param theCurrentPiece
+	 * @return
+	 */
 	private boolean move(final MovableTetrisPiece theCurrentPiece) {
 		boolean success;
 		success = false;
@@ -101,7 +125,7 @@ public class BoardModel extends Observable {
 	private boolean isMovable() {
 		boolean isMovable = true;
 		for (final Point p : myCurrentPiece.getBoardPoints()) {
-			if (p.getX() < 0 || p.getX() >= DEFAULT_MODEL_WIDTH) {
+			if (p.getX() < 0 || p.getX() >= DEFAULT_BOARD_MODEL_WIDTH) {
 				isMovable = false;
 			}
 			if (p.getY() < 0) {
@@ -119,8 +143,8 @@ public class BoardModel extends Observable {
 		final StringBuilder sb;
 		Block[] arr;
 		
-		height = DEFAULT_MODEL_HEIGHT;
-		width = DEFAULT_MODEL_WIDTH;
+		height = DEFAULT_BOARD_MODEL_HEIGHT;
+		width = DEFAULT_BOARD_MODEL_WIDTH;
 		
 		sb = new StringBuilder();
 		
@@ -153,6 +177,12 @@ public class BoardModel extends Observable {
 		sb.append(' ');
 		
 		return sb.toString();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

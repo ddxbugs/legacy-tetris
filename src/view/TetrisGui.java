@@ -90,6 +90,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		
 		c = new GridBagConstraints();
 		
+		// set tetris panel subcomponent view dimensions
 		boardViewDimension = new Dimension(DEFAULT_BOARD_VIEW_WIDTH, DEFAULT_BOARD_VIEW_HEIGHT);
 		previewPanelDimension = new Dimension(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT);
 		scorePanelDimension = new Dimension(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT);
@@ -113,6 +114,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		myPreviewPanel.setBackground(Color.RED);	// DEBUG Remove me
 		myScorePanel.setBackground(Color.GREEN);	// DEBUG Remove me
 		
+		// set grid bag constraints for preview panel
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx = 0;
@@ -120,12 +122,14 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		c.insets = new Insets(10, 10, 0, 0);
 		tetrisGuiPanel.add(myPreviewPanel, c);
 		
+		// set grid bag constraints for board view
 		c.fill = GridBagConstraints.VERTICAL;
 		c.anchor = GridBagConstraints.CENTER;
 		c.gridx = 1;
 		c.gridy = 0;
 		tetrisGuiPanel.add(myBoardView, c);
 		
+		// set grid bag constraints for score panel
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx = 2;

@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -80,22 +81,49 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 	private void setUpComponents() {
 		
 		JPanel tetrisGuiPanel;
+		GridBagConstraints c;
+		Dimension boardViewDimension, previewPanelDimension, scorePanelDimension;
 		
-		tetrisGuiPanel = new JPanel(new GridBagLayout());
-		tetrisGuiPanel.setBackground(Color.YELLOW);
+		tetrisGuiPanel = new JPanel(new GridBagLayout());		
+		tetrisGuiPanel.setBackground(Color.YELLOW);	// DEBUG Remove me
 		
-		myBoardView.setMinimumSize(new Dimension(DEFAULT_BOARD_VIEW_WIDTH, DEFAULT_BOARD_VIEW_HEIGHT));
-		myPreviewPanel.setMinimumSize(new Dimension(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT));
-		myScorePanel.setMinimumSize(new Dimension(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT));
+		c = new GridBagConstraints();
+		
+		boardViewDimension = new Dimension(DEFAULT_BOARD_VIEW_WIDTH, DEFAULT_BOARD_VIEW_HEIGHT);
+		previewPanelDimension = new Dimension(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT);
+		scorePanelDimension = new Dimension(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT);
+		
+		myBoardView.setMinimumSize(boardViewDimension);
+		myBoardView.setMaximumSize(boardViewDimension);
+		myBoardView.setPreferredSize(boardViewDimension);
+		
+		myPreviewPanel.setMinimumSize(previewPanelDimension);
+		myPreviewPanel.setMaximumSize(previewPanelDimension);
+		myPreviewPanel.setPreferredSize(previewPanelDimension);
+		
+		myScorePanel.setMinimumSize(scorePanelDimension);
+		myScorePanel.setMaximumSize(scorePanelDimension);
+		myScorePanel.setPreferredSize(scorePanelDimension);
 		
 		myBoardView.setBackground(Color.BLACK);		// DEBUG Remove me
 		myPreviewPanel.setBackground(Color.RED);	// DEBUG Remove me
 		myScorePanel.setBackground(Color.GREEN);	// DEBUG Remove me
 		
-		tetrisGuiPanel.add(myPreviewPanel);
-		tetrisGuiPanel.add(myBoardView);
-		tetrisGuiPanel.add(myScorePanel);
+		c.fill = GridBagConstraints.PAGE_START;
+		c.gridx = 0;
+		c.gridy = 0;
+		tetrisGuiPanel.add(myPreviewPanel, c);
 		
+		c.fill = GridBagConstraints.VERTICAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		tetrisGuiPanel.add(myBoardView, c);
+		
+		c.fill = GridBagConstraints.PAGE_END;
+		c.gridx = 2;
+		c.gridy = 0;
+		tetrisGuiPanel.add(myScorePanel, c);
+				
 		add(tetrisGuiPanel);
 		
 		setJMenuBar(myMenuBar);

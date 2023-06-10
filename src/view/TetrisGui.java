@@ -10,6 +10,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -47,7 +48,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 	/** The default preview panel view height */
 	private static final int DEFAULT_PREVIEW_PANEL_HEIGHT = 200;
 	/** The default score panel view width */
-	private static final int DEFAULT_SCORE_PANEL_WIDTH = 100;
+	private static final int DEFAULT_SCORE_PANEL_WIDTH = 300;
 	/** The default score panel view height */
 	private static final int DEFAULT_SCORE_PANEL_HEIGHT = 50;
 	/** The in-game menu options */
@@ -93,14 +94,17 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		previewPanelDimension = new Dimension(DEFAULT_PREVIEW_PANEL_WIDTH, DEFAULT_PREVIEW_PANEL_HEIGHT);
 		scorePanelDimension = new Dimension(DEFAULT_SCORE_PANEL_WIDTH, DEFAULT_SCORE_PANEL_HEIGHT);
 		
+		// set board dimensions
 		myBoardView.setMinimumSize(boardViewDimension);
 		myBoardView.setMaximumSize(boardViewDimension);
 		myBoardView.setPreferredSize(boardViewDimension);
 		
+		// set preview panel dimensions
 		myPreviewPanel.setMinimumSize(previewPanelDimension);
 		myPreviewPanel.setMaximumSize(previewPanelDimension);
 		myPreviewPanel.setPreferredSize(previewPanelDimension);
 		
+		// set score panel dimensions
 		myScorePanel.setMinimumSize(scorePanelDimension);
 		myScorePanel.setMaximumSize(scorePanelDimension);
 		myScorePanel.setPreferredSize(scorePanelDimension);
@@ -109,19 +113,24 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		myPreviewPanel.setBackground(Color.RED);	// DEBUG Remove me
 		myScorePanel.setBackground(Color.GREEN);	// DEBUG Remove me
 		
-		c.fill = GridBagConstraints.PAGE_START;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx = 0;
 		c.gridy = 0;
+		c.insets = new Insets(10, 10, 0, 0);
 		tetrisGuiPanel.add(myPreviewPanel, c);
 		
 		c.fill = GridBagConstraints.VERTICAL;
+		c.anchor = GridBagConstraints.CENTER;
 		c.gridx = 1;
 		c.gridy = 0;
 		tetrisGuiPanel.add(myBoardView, c);
 		
-		c.fill = GridBagConstraints.PAGE_END;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx = 2;
 		c.gridy = 0;
+		c.insets = new Insets(10, 10, 0, 0);
 		tetrisGuiPanel.add(myScorePanel, c);
 				
 		add(tetrisGuiPanel);

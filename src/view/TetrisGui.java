@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -24,6 +25,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+
+import model.ColorPalette;
 
 /**
  * @author ddxbugs
@@ -86,7 +91,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		Dimension boardViewDimension, previewPanelDimension, scorePanelDimension;
 		
 		tetrisGuiPanel = new JPanel(new GridBagLayout());		
-		tetrisGuiPanel.setBackground(Color.YELLOW);	// DEBUG Remove me
+		tetrisGuiPanel.setBackground(ColorPalette.BASESTAR.getColor());	// DEBUG Remove me
 		
 		c = new GridBagConstraints();
 		
@@ -110,10 +115,18 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		myScorePanel.setMaximumSize(scorePanelDimension);
 		myScorePanel.setPreferredSize(scorePanelDimension);
 		
-		// TODO 
-		myBoardView.setBackground(Color.BLACK);		// DEBUG Remove me
-		myPreviewPanel.setBackground(Color.RED);	// DEBUG Remove me
-		myScorePanel.setBackground(Color.GREEN);	// DEBUG Remove me
+		// set raised border with colors
+		myBoardView.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, 
+				ColorPalette.CYAN_TRON_LEGACY.getColor(), ColorPalette.PANE.getColor()));
+		myPreviewPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,
+				ColorPalette.CYAN_TRON_LEGACY.getColor(), ColorPalette.PANE.getColor()));
+		myScorePanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,
+				ColorPalette.CYAN_TRON_LEGACY.getColor(), ColorPalette.PANE.getColor()));
+		 
+		// set view subcomponent background colors
+		myBoardView.setBackground(ColorPalette.BASESTAR.getColor());		// DEBUG Remove me
+		myPreviewPanel.setBackground(ColorPalette.BASESTAR.getColor());	// DEBUG Remove me
+		myScorePanel.setBackground(ColorPalette.BASESTAR.getColor());	// DEBUG Remove me
 				
 		// set grid bag constraints for score panel
 		c.fill = GridBagConstraints.HORIZONTAL;

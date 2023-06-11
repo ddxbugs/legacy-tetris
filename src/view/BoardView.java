@@ -3,6 +3,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
@@ -27,22 +28,35 @@ import model.ColorPalette;
  *
  */
 public class BoardView extends JPanel implements ActionListener {
+	/**
+	 * Default serial version UID
+	 */
+	private static final long serialVersionUID = 1L;
+	/** Default timer start delay */
 	private static final int DEFAULT_DELAY_MS = 1000;
-	private static final int DEFAULT_BOARD_MODEL_SCALE = 30;
+	/** Default board model scale */
+	private static final int DEFAULT_BOARD_MODEL_SCALE = 10;
+	/** Magic number 100 millisecond */
 	private static final int ONE_HUNDRETH_MS = 100;
 	/** Magic number Zero */
 	private static final int ZERO = 0;
+	/** Magic number Two */
+	private static final int TWO = 2;
+	/** The tetris board model */
 	private BoardModel myBoardModel;
+	/** The tetris action timer */
 	private Timer myTimer;
-	
-	public BoardView(final int theWidth, final int theHeight) {
+	/**
+	 * Default class constructor instantiates tetris board view
+	 */
+	public BoardView(/*final int theWidth, final int theHeight*/) {
 		// TODO Auto-generated constructor stub
 		super();
 		myBoardModel = new BoardModel();
 		myTimer = new Timer(DEFAULT_DELAY_MS, this);
 		
-		setSize(theWidth, theHeight);
 		addKeyListener(new Player());
+		
 		setFocusable(true);
 	}
 	/**
@@ -51,21 +65,33 @@ public class BoardView extends JPanel implements ActionListener {
 	public void setDimension(final int theWidth, final int theHeight, final int theScale) {
 		setSize(theWidth * theScale, theHeight * theScale);
 	}
+	/**
+	 * 
+	 */
 	protected void newGame() {
 		myBoardModel.reset();
 		myTimer.start();
 	}
+	/**
+	 * 
+	 */
 	protected void endGame() {
 		myTimer.stop();
 	}
+	/**
+	 * 
+	 * @param theLevel
+	 */
 	protected void setDelay(final int theLevel) {
 		myTimer.setDelay(theLevel * ONE_HUNDRETH_MS);
 	}
-
+	/**
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-//		myBoardModel.down();
+		myBoardModel.down();
 	}
 	
 	public void paintComponent(final Graphics theGraphics) {
@@ -78,26 +104,23 @@ public class BoardView extends JPanel implements ActionListener {
 	}
 	
 	private void drawBlocks(final Graphics2D theGraphics) {
-		int rectX, rectY, w, h;
+		int rectX, rectY, width, height;
 		String row;
 		char block;
-		Rectangle2D r;
+		Rectangle2D rect;
 		
 		rectX = 0;
 		rectY = 0;
-		w = getWidth() / DEFAULT_BOARD_MODEL_SCALE;
-		h = getHeight() / DEFAULT_BOARD_MODEL_SCALE;
 		
-		System.out.println("getWidth() " + getWidth());
-		System.out.println("getHeight() " + getHeight());
-		System.out.println(w + ", " + h);
+		width = getWidth() / DEFAULT_BOARD_MODEL_SCALE;
+		height = getHeight() / DEFAULT_BOARD_MODEL_SCALE / TWO;
 		
 		String[] board = myBoardModel.toString().split("\n");
 		for (int i = 0; i < board.length; i++) {
 			row = board[i];
 			System.out.println(i + " " + row + "\t" + row.length());
 			for (int col = 0; col < row.length(); col++) {
-//				block = row.charAt(i);
+				
 				block = ' ';
 				switch (block) {
 				case 'I' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
@@ -110,17 +133,25 @@ public class BoardView extends JPanel implements ActionListener {
 				case ' ' : theGraphics.setColor(ColorPalette.BASESTAR.getColor());
 				case '|' : break;
 				}
-				r = new Rectangle(rectX, rectY, w, h);
-				theGraphics.fill(r);
+				
+				rect = new Rectangle(rectX, rectY, width, height);
+				theGraphics.fill(rect);
 				theGraphics.setColor(ColorPalette.PANE.getColor());
-				theGraphics.draw(r);
-				rectX += w;
+				theGraphics.draw(rect);
+				rectX += width;
+				
 			}
+			
 			rectX = ZERO;
-			rectY += h;
+			rectY += height;
 		}
 	}
 	
+	/**
+	 * Player listener class registers key pressed events
+	 * @author ddxbugs
+	 *
+	 */
 	class Player implements KeyListener {
 		private static final int UP = KeyEvent.VK_UP;
 		private static final int DOWN = KeyEvent.VK_DOWN;

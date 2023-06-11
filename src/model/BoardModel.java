@@ -149,10 +149,10 @@ public class BoardModel implements ActionListener {
 		sb = new StringBuilder();
 		
 		// ceiling	
-		sb.append(' ');
+//		sb.append(' ');
 		for (int i = 0; i < width; i++)
 			sb.append('-');
-		sb.append(" \n");
+		sb.append("\n");
 		
 		// board
 		for (int row = height - 1; row >= 0 
@@ -160,21 +160,22 @@ public class BoardModel implements ActionListener {
 				&& myCurrentPiece != null; row--) {
 			
 			arr = myFrozenBlocks.get(row);	// TODO FIX ME!!!
-			sb.append('|'); // left wall
+//			sb.append('|'); // left wall
 			for (final Block b : arr) {
 				if (b == null)
 					sb.append(' ');	// EMPTY
 				else
 					sb.append(b);	// IJLOSTZ
 			}
-			sb.append("|\n"); // right wall
+//			sb.append("|\n"); // right wall
+			sb.append("\n");
 		}
 		
 		// floor
-		sb.append(' ');
+//		sb.append(' ');
 		for (int w = 0; w < width; w++)
 			sb.append('-');
-		sb.append(' ');
+//		sb.append(' ');
 		
 		return sb.toString();
 	}

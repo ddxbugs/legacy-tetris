@@ -110,33 +110,34 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		myScorePanel.setMaximumSize(scorePanelDimension);
 		myScorePanel.setPreferredSize(scorePanelDimension);
 		
+		// TODO 
 		myBoardView.setBackground(Color.BLACK);		// DEBUG Remove me
 		myPreviewPanel.setBackground(Color.RED);	// DEBUG Remove me
 		myScorePanel.setBackground(Color.GREEN);	// DEBUG Remove me
-		
-		// set grid bag constraints for preview panel
+				
+		// set grid bag constraints for score panel
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.insets = new Insets(10, 10, 0, 0);
-		tetrisGuiPanel.add(myPreviewPanel, c);
+//		c.insets = new Insets(10, 10, 0, 0);
+		tetrisGuiPanel.add(myScorePanel, c);
 		
 		// set grid bag constraints for board view
 		c.fill = GridBagConstraints.VERTICAL;
 		c.anchor = GridBagConstraints.CENTER;
-		c.gridx = 1;
-		c.gridy = 0;
+		c.gridx = 0;
+		c.gridy = 1;
 		tetrisGuiPanel.add(myBoardView, c);
 		
-		// set grid bag constraints for score panel
+		// set grid bag constraints for preview panel
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.PAGE_START;
-		c.gridx = 2;
-		c.gridy = 0;
-		c.insets = new Insets(10, 10, 0, 0);
-		tetrisGuiPanel.add(myScorePanel, c);
-				
+		c.gridx = 1;
+		c.gridy = 1;
+//		c.insets = new Insets(10, 10, 0, 0);
+		tetrisGuiPanel.add(myPreviewPanel, c);
+		
 		add(tetrisGuiPanel);
 		
 		setJMenuBar(myMenuBar);

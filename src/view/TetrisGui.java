@@ -148,7 +148,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		c.anchor = GridBagConstraints.PAGE_START;
 		c.gridx = 1;
 		c.gridy = 1;
-//		c.insets = new Insets(10, 10, 0, 0);
+		c.insets = new Insets(0, 0, 0, 0);
 		tetrisGuiPanel.add(myPreviewPanel, c);
 		
 		add(tetrisGuiPanel);
@@ -175,6 +175,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 	class MenuBar extends JMenuBar implements ActionListener {
 		
 		private static final String ABOUT = "About";
+		private static final String FILE = "File";
 		private static final String NEW_GAME = "New Game";
 		private static final String END_GAME = "End Game";
 		private static final String SETTINGS = "Settings";
@@ -195,15 +196,19 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		 * 
 		 */
 		private void setUpComponents() {
-			JMenu newGame = new JMenu(NEW_GAME);
+			// File JMenu
+			JMenu file = new JMenu(FILE);
 			JMenu settings = new JMenu(SETTINGS);
-			JMenu endGame = new JMenu(END_GAME);
 			
+			// File JMenuItems
+			JMenuItem newGame = new JMenuItem(NEW_GAME);
+			JMenuItem endGame = new JMenuItem(END_GAME);
 			JMenuItem exit = new JMenuItem(EXIT);
 			JMenuItem about = new JMenuItem(ABOUT);
 			JMenuItem help = new JMenuItem(HELP);
 			JMenuItem controls = new JMenuItem(CONTROLS);
 			
+			// Add mouse 
 			newGame.addActionListener(this);
 			endGame.addActionListener(this);
 			settings.addActionListener(this);
@@ -212,12 +217,18 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 			help.addActionListener(this);
 			controls.addActionListener(this);
 			
+			// Add JMenuItems to File
+			file.add(newGame);
+			file.add(endGame);
+			file.add(exit);
+			
+			// Add JMenuItems to Settings 
 			settings.add(about);
 			settings.add(help);
 			settings.add(controls);
 			
-			add(newGame);
-			add(endGame);
+			// Add JMenus to Menu Bar
+			add(file);
 			add(settings);
 		}
 		/**
@@ -227,7 +238,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		public void actionPerformed(ActionEvent theActionEvent) {
 			// TODO Auto-generated method stub
 			final String cmd = theActionEvent.getActionCommand();
-			
+			System.out.println(cmd); // TODO remove me
 			switch(cmd) {
 			case NEW_GAME : myBoardView.newGame(); break;
 			case END_GAME : myBoardView.endGame(); break;

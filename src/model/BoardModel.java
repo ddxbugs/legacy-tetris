@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 /**
  * @author ddxbugs
  *
  */
-public class BoardModel implements ActionListener {
+public class BoardModel {
 	private static final int CEILING_BUFFER = 4;
 	private static final int ONE = 1;
 	private static final int TWO = 2;
@@ -25,6 +28,7 @@ public class BoardModel implements ActionListener {
 	private List<TetrisPiece> myTetrisPieces;
 	private TetrisPiece myNextPiece;
 	private MovableTetrisPiece myCurrentPiece;
+	private ChangeListener myChangeListener;
 	
 	/**
 	 * 
@@ -35,6 +39,11 @@ public class BoardModel implements ActionListener {
 		myTetrisPieces = null;
 		myNextPiece = null;
 		myCurrentPiece = null;
+		myChangeListener = null;
+	}
+	
+	public void setChangeListener(final ChangeListener theChangeListener) {
+		myChangeListener = theChangeListener;
 	}
 	
 	public void reset() {
@@ -56,52 +65,45 @@ public class BoardModel implements ActionListener {
 	 * 
 	 */
 	public void rotate() {
-//		System.out.println("Rotate");
-		if (myCurrentPiece != null) {
-			final MovableTetrisPiece cwPiece = myCurrentPiece.rotate();
-			final Point[] offset = WallKick.getWallKicks(cwPiece.getTetrisPiece(), 
-					myCurrentPiece.getRotation(), 
-					cwPiece.getRotation());
-			for (final Point p : offset) {
-				final Point offsetPoint = cwPiece.getPosition().transform(p);
-				final MovableTetrisPiece temp = cwPiece.setPosition(offsetPoint);
-				if (move(temp)) break;
-			}
-		} 
+//		if (myCurrentPiece != null) {
+//			final MovableTetrisPiece cwPiece = myCurrentPiece.rotate();
+//			final Point[] offset = WallKick.getWallKicks(cwPiece.getTetrisPiece(), 
+//					myCurrentPiece.getRotation(), 
+//					cwPiece.getRotation());
+//			for (final Point p : offset) {
+//				final Point offsetPoint = cwPiece.getPosition().transform(p);
+//				final MovableTetrisPiece temp = cwPiece.setPosition(offsetPoint);
+//				if (move(temp)) break;
+//			}
+//		} 
 	}
 	/**
 	 * 
 	 */
 	public void drop() {
-//		System.out.println("Drop");
-		boolean drop;
-		drop = false;
-		while (drop) {
-			drop = move(myCurrentPiece.down());
+		while (myCurrentPiece != null && isMovable(myCurrentPiece.down())) {
+			move(myCurrentPiece.down());
 		}
 	}
 	/**
 	 * 
 	 */
 	public void down() {
-//		System.out.println("Down");
-		if (myCurrentPiece != null)
+		if (myCurrentPiece != null && isMovable(myCurrentPiece.down()))
 			move(myCurrentPiece.down());
 	}
 	/**
 	 * 
 	 */
 	public void left() {
-//		System.out.println("Left");
-		if (myCurrentPiece != null)
+		if (myCurrentPiece != null && isMovable(myCurrentPiece.left()))
 			move(myCurrentPiece.left());
 	}
 	/**
 	 * 
 	 */
 	public void right() {
-//		System.out.println("Right");
-		if (myCurrentPiece != null)
+		if (myCurrentPiece != null && isMovable(myCurrentPiece.right()))
 			move(myCurrentPiece.right());
 	}
 	/**
@@ -109,18 +111,12 @@ public class BoardModel implements ActionListener {
 	 * @param theCurrentPiece
 	 * @return
 	 */
-	private boolean move(final MovableTetrisPiece theMovedPiece) {
-		boolean success;
-		success = false;
-		
-		if (isMovable(theMovedPiece)) {
-			success = true;
-			
-		}
-		return success;
+	private void move(final MovableTetrisPiece theMovedPiece) {
+		myCurrentPiece = theMovedPiece;
+		myChangeListener.stateChanged(new ChangeEvent(myCurrentPiece));	
 	}
 	/**
-	 * 
+	 * Helper function
 	 * @param theMovedPiece
 	 * @return
 	 */
@@ -130,6 +126,7 @@ public class BoardModel implements ActionListener {
 			if (p.getX() < 0 || p.getX() >= DEFAULT_BOARD_MODEL_WIDTH || p.getY() < 0) {
 				isMovable = false;
 			}
+			if (!isMovable) break;	// exit loop false case
 		}
 		return isMovable;
 	}
@@ -155,6 +152,7 @@ public class BoardModel implements ActionListener {
 		
 		// board
 		for (int row = height - 1; row >= 0 
+				&& myFrozenBlocks != null
 				&& myFrozenBlocks.size() > 0 
 				&& myCurrentPiece != null; row--) {
 			
@@ -177,12 +175,6 @@ public class BoardModel implements ActionListener {
 //		sb.append(' ');
 		
 		return sb.toString();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -35,8 +35,6 @@ public class BoardModel implements ActionListener {
 		myTetrisPieces = null;
 		myNextPiece = null;
 		myCurrentPiece = null;
-		
-		reset();	
 	}
 	
 	public void reset() {
@@ -52,8 +50,7 @@ public class BoardModel implements ActionListener {
 		myCurrentPiece = new MovableTetrisPiece(TetrisPiece.getRandomPiece(),
 				DEFAULT_START_POINT);
 		
-		myTetrisPieces.add(myNextPiece);
-				
+		myTetrisPieces.add(myNextPiece);		
 	}
 	/**
 	 * 
@@ -112,23 +109,25 @@ public class BoardModel implements ActionListener {
 	 * @param theCurrentPiece
 	 * @return
 	 */
-	private boolean move(final MovableTetrisPiece theCurrentPiece) {
+	private boolean move(final MovableTetrisPiece theMovedPiece) {
 		boolean success;
 		success = false;
-		if (isMovable()) {
-			myCurrentPiece = theCurrentPiece;
+		
+		if (isMovable(theMovedPiece)) {
 			success = true;
-//			setChanged(); // TODO update observer
+			
 		}
 		return success;
 	}
-	private boolean isMovable() {
+	/**
+	 * 
+	 * @param theMovedPiece
+	 * @return
+	 */
+	private boolean isMovable(final MovableTetrisPiece theMovedPiece) {
 		boolean isMovable = true;
-		for (final Point p : myCurrentPiece.getBoardPoints()) {
-			if (p.getX() < 0 || p.getX() >= DEFAULT_BOARD_MODEL_WIDTH) {
-				isMovable = false;
-			}
-			if (p.getY() < 0) {
+		for (final Point p : theMovedPiece.getBoardPoints()) {
+			if (p.getX() < 0 || p.getX() >= DEFAULT_BOARD_MODEL_WIDTH || p.getY() < 0) {
 				isMovable = false;
 			}
 		}

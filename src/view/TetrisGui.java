@@ -196,11 +196,11 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 		 * 
 		 */
 		private void setUpComponents() {
-			// File JMenu
+			// Set up File JMenu
 			JMenu file = new JMenu(FILE);
 			JMenu settings = new JMenu(SETTINGS);
 			
-			// File JMenuItems
+			// Set up File JMenuItems
 			JMenuItem newGame = new JMenuItem(NEW_GAME);
 			JMenuItem endGame = new JMenuItem(END_GAME);
 			JMenuItem exit = new JMenuItem(EXIT);
@@ -208,7 +208,7 @@ public class TetrisGui extends JFrame implements Observer, ActionListener {
 			JMenuItem help = new JMenuItem(HELP);
 			JMenuItem controls = new JMenuItem(CONTROLS);
 			
-			// Add mouse 
+			// Add JMenuItem action listeners
 			newGame.addActionListener(this);
 			endGame.addActionListener(this);
 			settings.addActionListener(this);

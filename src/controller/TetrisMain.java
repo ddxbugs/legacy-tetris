@@ -24,9 +24,9 @@ public class TetrisMain {
 	private static final String TITLE = "Disney's Tron: Legacy Tetris";
 	private static final String ICON = "/res/icon.jpg";
 	/** The default gui frame width */
-	private static final int DEFAULT_GUI_WIDTH = 1000;
+	private static final int DEFAULT_GUI_WIDTH = 600;
 	/** The default gui frame height */
-	private static final int DEFAULT_GUI_HEIGHT = 600;
+	private static final int DEFAULT_GUI_HEIGHT = 800;
 	
 	private static GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	/**

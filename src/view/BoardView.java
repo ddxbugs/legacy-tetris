@@ -19,6 +19,8 @@ import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import model.BoardModel;
 import model.ColorPalette;
@@ -27,7 +29,7 @@ import model.ColorPalette;
  * @author ddxbugs
  *
  */
-public class BoardView extends JPanel implements ActionListener {
+public class BoardView extends JPanel implements ActionListener, ChangeListener {
 	/**
 	 * Default serial version UID
 	 */
@@ -54,6 +56,8 @@ public class BoardView extends JPanel implements ActionListener {
 		super();
 		myBoardModel = new BoardModel();
 		myTimer = new Timer(DEFAULT_DELAY_MS, this);
+		
+		myBoardModel.setChangeListener(this);
 		
 		addKeyListener(new Player());
 		
@@ -86,23 +90,34 @@ public class BoardView extends JPanel implements ActionListener {
 		myTimer.setDelay(theLevel * ONE_HUNDRETH_MS);
 	}
 	/**
-	 * 
+	 * Java Swing Timer listener
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		myBoardModel.down();
+		repaint();
 	}
-	
+	/**
+	 * BoardModel change listener
+	 */
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		repaint();
+	}
+	/**
+	 * 
+	 */
 	public void paintComponent(final Graphics theGraphics) {
 		super.paintComponent(theGraphics);
 		final Graphics2D g = (Graphics2D) theGraphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
-		
 		drawBlocks(g);
 	}
-	
+	/**
+	 * 
+	 * @param theGraphics
+	 */
 	private void drawBlocks(final Graphics2D theGraphics) {
 		int rectX, rectY, width, height;
 		String row;
@@ -118,10 +133,11 @@ public class BoardView extends JPanel implements ActionListener {
 		String[] board = myBoardModel.toString().split("\n");
 		for (int i = 0; i < board.length; i++) {
 			row = board[i];
-			System.out.println(i + " " + row + "\t" + row.length());
+			
 			for (int col = 0; col < row.length(); col++) {
 				
-				block = ' ';
+				block = row.charAt(col);
+				
 				switch (block) {
 				case 'I' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
 				case 'J' : theGraphics.setColor(ColorPalette.CYAN_TRON_LEGACY.getColor());
@@ -131,7 +147,7 @@ public class BoardView extends JPanel implements ActionListener {
 				case 'Z' : theGraphics.setColor(ColorPalette.ORANGE_TRON_LEGACY.getColor());;
 				case 'O' : theGraphics.setColor(ColorPalette.PANE.getColor());
 				case ' ' : theGraphics.setColor(ColorPalette.BASESTAR.getColor());
-				case '|' : break;
+				case '-' : break;
 				}
 				
 				rect = new Rectangle(rectX, rectY, width, height);
@@ -189,5 +205,4 @@ public class BoardView extends JPanel implements ActionListener {
 			
 		}
 	}
-	
 }

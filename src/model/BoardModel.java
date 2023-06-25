@@ -19,7 +19,8 @@ public class BoardModel implements ActionListener {
 	private static final int TWO = 2;
 	private static final int DEFAULT_BOARD_MODEL_WIDTH = 10;
 	private static final int DEFAULT_BOARD_MODEL_HEIGHT = 20;
-	
+	private static final Point DEFAULT_START_POINT = new Point((DEFAULT_BOARD_MODEL_WIDTH / TWO),
+			DEFAULT_BOARD_MODEL_HEIGHT - CEILING_BUFFER - ONE);
 	private List<Block[]> myFrozenBlocks;
 	private List<TetrisPiece> myTetrisPieces;
 	private TetrisPiece myNextPiece;
@@ -49,8 +50,7 @@ public class BoardModel implements ActionListener {
 		myNextPiece = TetrisPiece.getRandomPiece();
 		
 		myCurrentPiece = new MovableTetrisPiece(TetrisPiece.getRandomPiece(),
-				new Point((DEFAULT_BOARD_MODEL_WIDTH / TWO),
-						DEFAULT_BOARD_MODEL_HEIGHT - CEILING_BUFFER - ONE));
+				DEFAULT_START_POINT);
 		
 		myTetrisPieces.add(myNextPiece);
 				

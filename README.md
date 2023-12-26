@@ -5,7 +5,7 @@
 # Project Name: Legacy Tetris
 
 ## Description
-Early Java game development project based on the Disney remake of Tron: Legacy.
+Early Java game development project based on the Disney remake of Tron: Legacy theme.
 
 
 

@@ -57,18 +57,16 @@ java TetrisMain
 ```
 
 ## Screenshots or Video
-![Example Image](images/example.png "Example Image")
+<img src="images/example.png" width="250px">
 
 ## Contributing
+No contributions at this time.
 
 ## Credits
-Many thanks to TCSS 305 Instructors for providing source code, Disney's Tron: Legacy for concept art and design, colourlovers.com for creating the color scheme
+Many thanks to TCSS 305 Instructors for providing source code, Disney's Tron: Legacy for concept art and design, colourlovers.com artists for creating the color scheme.
 
 ## License
-
-```plaintext
 This project is currently unlicensed. All rights reserved. This means you have no permissions to use, modify, or distribute the code in this repository until a license is designated.
-```
 
 ## Contact Information
 - Email: ddxbugs@proton.me

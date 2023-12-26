@@ -57,7 +57,7 @@ java TetrisMain
 ```
 
 ## Screenshots or Video
-![Example Image](images/example.jpg "Example Image")
+![Example Image](images/example.png "Example Image")
 
 ## Contributing
 
